@@ -4,17 +4,20 @@ import { getMonth } from "../../helpers/Date";
 
 import "./style.scss";
 
+let keybase = 0;
+const generateKey = () => {
+  keybase += 1;
+  return keybase + Math.random();
+};
+
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1,
   );
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
-      5000
-    );
+    setTimeout(() => setIndex(index < byDateDesc.length ? index + 1 : 0), 5000);
   };
   useEffect(() => {
     nextCard();
@@ -24,7 +27,7 @@ const Slider = () => {
       {byDateDesc?.map((event, idx) => (
         <>
           <div
-            key={event.title}
+            key={event.title + event.id + generateKey()}
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -42,7 +45,7 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  key={`${event.id}`}
+                  key={`${event.id}${event.title}${generateKey()}`}
                   type="radio"
                   name="radio-button"
                   checked={idx === radioIdx}

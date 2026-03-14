@@ -29,18 +29,15 @@ const EventCard = ({
 );
 
 EventCard.propTypes = {
-  imageSrc: PropTypes.string,
-  imageAlt: PropTypes.string,
+  imageSrc: PropTypes.string.isRequired,
+  imageAlt: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   small: PropTypes.bool,
   label: PropTypes.string.isRequired,
 };
 
 EventCard.defaultProps = {
-  imageSrc: "/images/default.png",
-  imageAlt: "image",
-  title: "image par défaut",
   small: false,
 };
 
